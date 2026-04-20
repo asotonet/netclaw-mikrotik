@@ -262,6 +262,20 @@
     },
     "devnet-content-search": {
       "url": "https://devnet.cisco.com/v1/foundation-search-mcp/mcp"
+    },
+    "mikrotik-mcp": {
+      "command": "python3",
+      "args": [
+        "-u",
+        "mcp-servers/mikrotik-mcp/mikrotik_mcp_server.py"
+      ],
+      "env": {
+        "MIKROTIK_DEVICES_FILE": "${MIKROTIK_DEVICES_FILE:-devices.json}",
+        "MIKROTIK_TIMEOUT": "${MIKROTIK_TIMEOUT:-60}",
+        "NETCLAW_LAB_MODE": "${NETCLAW_LAB_MODE:-false}",
+        "SERVICENOW_INSTANCE_URL": "${SERVICENOW_INSTANCE_URL}",
+        "SERVICENOW_API_KEY": "${SERVICENOW_API_KEY}"
+      }
     }
   }
 }

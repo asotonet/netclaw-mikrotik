@@ -2030,37 +2030,41 @@ fi
 echo ""
 
 # ═══════════════════════════════════════════
-# Step 51: Deploy skills and set environment
+# Step 50c: MikroTik RouterOS MCP Server
 # ═══════════════════════════════════════════
 
-# ═══════════════════════════════════════════
-# Step 50c: Install Token Optimization Library (netclaw_tokens)
-# ═══════════════════════════════════════════
+log_step "50c/$TOTAL_STEPS Installing MikroTik RouterOS MCP Server..."
+echo "  Built-in MCP server: mcp-servers/mikrotik-mcp/"
+echo "  MikroTik RouterOS v7 REST API management (18 tools)"
+echo "  Supports: CLI exec, config management, templates, facts, backup/export,"
+echo "            real-time monitoring (system/interface/queue), NetWatch, logging"
+echo "  Protocol: HTTP/HTTPS (port 8728/8729), Basic Auth"
+echo "  Vendors: MikroTik RouterOS v7+"
 
-log_step "50c/$TOTAL_STEPS Installing Token Optimization Library (netclaw_tokens)..."
+MIKROTIK_MCP_DIR="$MCP_DIR/mikrotik-mcp"
+if [ -d "$NETCLAW_DIR/mcp-servers/mikrotik-mcp" ]; then
+    MIKROTIK_MCP_DIR="$NETCLAW_DIR/mcp-servers/mikrotik-mcp"
+fi
 
-TOKEN_LIB_DIR="$NETCLAW_DIR/src/netclaw_tokens"
-if [ -d "$TOKEN_LIB_DIR" ]; then
-    log_info "Installing netclaw_tokens dependencies..."
-    pip3 install -r "$TOKEN_LIB_DIR/requirements.txt" 2>/dev/null || \
-        pip3 install --break-system-packages -r "$TOKEN_LIB_DIR/requirements.txt" 2>/dev/null || {
-            log_warn "netclaw_tokens pip install failed — trying individual packages"
-            pip3 install anthropic toon-format 2>/dev/null || \
-                pip3 install --break-system-packages anthropic toon-format 2>/dev/null || \
-                    log_warn "Token optimization deps failed. Install manually: pip3 install anthropic toon-format"
+if [ -f "$MIKROTIK_MCP_DIR/requirements.txt" ]; then
+    log_info "Installing MikroTik MCP dependencies (fastmcp, requests, pydantic, jinja2, pyyaml)..."
+    pip3 install -r "$MIKROTIK_MCP_DIR/requirements.txt" 2>/dev/null || \
+        pip3 install --break-system-packages -r "$MIKROTIK_MCP_DIR/requirements.txt" 2>/dev/null || {
+            log_warn "MikroTik MCP pip install failed — dependencies may need manual installation"
+            log_info "Try: pip3 install fastmcp requests pydantic jinja2 pyyaml"
         }
-    log_info "netclaw_tokens library ready at $TOKEN_LIB_DIR"
+    log_info "MikroTik MCP ready: $MIKROTIK_MCP_DIR/mikrotik_mcp_server.py"
 else
-    log_warn "Token optimization library not found at $TOKEN_LIB_DIR"
+    log_warn "MikroTik MCP requirements.txt not found at $MIKROTIK_MCP_DIR"
 fi
 
 echo ""
 
 # ═══════════════════════════════════════════
-# Step 50d: MemPalace AI Memory MCP Server
+# Step 50e: MemPalace AI Memory MCP Server
 # ═══════════════════════════════════════════
 
-log_step "50d/$TOTAL_STEPS Installing MemPalace AI Memory MCP Server..."
+log_step "50e/$TOTAL_STEPS Installing MemPalace AI Memory MCP Server..."
 echo "  Source: https://github.com/milla-jovovich/mempalace"
 echo "  AI memory system — 19 MCP tools, fully local, no API keys (Python 3.9+)"
 
