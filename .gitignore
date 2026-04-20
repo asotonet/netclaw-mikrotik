@@ -55,6 +55,7 @@ mcp-servers/*
 !mcp-servers/ipfix-mcp/
 !mcp-servers/gns3-mcp-server/
 !mcp-servers/prisma-sdwan-mcp/
+!mcp-servers/mikrotik-mcp/
 
 # Traces
 trace.json
