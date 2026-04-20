@@ -229,6 +229,28 @@ else
 fi
 echo ""
 
+# --- MikroTik RouterOS ---
+if yesno "Do you have MikroTik RouterOS devices? (REST API automation)"; then
+    echo ""
+    echo -e "  MikroTik MCP provides 18 tools: CLI execution, config management, Jinja2 templates, device facts,"
+    echo -e "  backup/export, real-time monitoring (system/interface/queue), NetWatch, and logging."
+    echo -e "  Devices are defined in a JSON inventory file (not environment variables)."
+    echo -e "  Protocol: HTTP/HTTPS on port 8728/8729 with Basic Auth."
+    echo ""
+    prompt MIKROTIK_DEVICES "Path to devices.json inventory file" "devices.json"
+    [ -n "$MIKROTIK_DEVICES" ] && set_env "MIKROTIK_DEVICES_FILE" "$MIKROTIK_DEVICES"
+    if yesno "Enable lab mode? (bypasses ITSM gate for config changes)"; then
+        set_env "NETCLAW_LAB_MODE" "true"
+        ok "MikroTik lab mode enabled"
+    else
+        set_env "NETCLAW_LAB_MODE" "false"
+    fi
+    ok "MikroTik RouterOS configured"
+else
+    skip "MikroTik RouterOS"
+fi
+echo ""
+
 # --- Arista CloudVision ---
 if yesno "Do you have an Arista CloudVision Portal (CVP) instance? (Arista network management)"; then
     echo ""
