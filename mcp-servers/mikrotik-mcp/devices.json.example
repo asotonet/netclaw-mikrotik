@@ -1,0 +1,26 @@
+{
+  "core-mt-01": {
+    "host": "10.0.0.1",
+    "port": 8728,
+    "username": "admin",
+    "password": "changeme",
+    "use_https": false,
+    "tls_skip_verify": false
+  },
+  "edge-mt-02": {
+    "host": "192.168.1.1",
+    "port": 8729,
+    "username": "admin",
+    "password": "changeme",
+    "use_https": true,
+    "tls_skip_verify": true
+  },
+  "branch-mt-03": {
+    "host": "192.168.2.1",
+    "port": 8728,
+    "username": "admin",
+    "password": "changeme",
+    "use_https": false,
+    "tls_skip_verify": false
+  }
+}
